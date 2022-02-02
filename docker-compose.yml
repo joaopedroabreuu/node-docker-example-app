@@ -1,0 +1,50 @@
+version: "3.5"
+
+volumes:
+  node_base:
+    driver: local
+
+networks:
+  node_base_network:
+    driver: bridge
+
+services:
+  db:
+    image: "mysql/mysql-server:latest"
+    command: "--default-authentication-plugin=mysql_native_password --character-set-server=utf8 --collation-server=utf8_unicode_ci"
+    container_name: "node_base"
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_DATABASE=node_base
+      - MYSQL_ROOT_PASSWORD=secret
+      - MYSQL_ROOT_HOST=%
+      - MYSQL_USER_HOST=%
+      - MYSQL_USER=docker
+      - MYSQL_PASSWORD=secret
+    healthcheck:
+      test: [ "CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -u docker --password=secret" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - node_base:/var/lib/mysql
+    networks:
+      - node_base_network
+  adminer:
+    image: adminer
+    container_name: adminer
+    ports:
+      - 3001:8080
+    networks:
+      - node_base_network
+  app:
+    container_name: node_app
+    build: .
+    command: npm start
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/usr/app
+    networks:
+      - node_base_network
