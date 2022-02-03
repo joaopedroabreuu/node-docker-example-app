@@ -163,6 +163,7 @@ services:
       - "3000:3000"
     volumes:
       - .:/usr/app
+      - /usr/app/node_modules
     networks:
       - node_base_network
 ```
