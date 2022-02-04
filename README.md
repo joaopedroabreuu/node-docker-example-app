@@ -87,6 +87,9 @@ node_modules
 ##### ps: A flag -t permite marcar sua imagem para que seja mais fácil encontrá-la posteriormente usando o comando:
   ```docker ps -a```
 
+##### Lista as imagens:
+```docker image ls```
+
 #### Depois do build rode a imagem
   ```docker run -p 3000:3000 -d node-docker-example-app```
 
@@ -100,6 +103,12 @@ node_modules
 
 ### Testando app de exemplo
 Abra no browser o seguinte endereço: http://localhost:3000
+
+#### Parar o container
+  ```docker stop <container_id>```
+
+#### Remover o container
+  ```docker rm <container_id>```
 
 
 ## Nosso primeiro `docker-compose.yml`
