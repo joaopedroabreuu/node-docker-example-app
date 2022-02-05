@@ -230,7 +230,7 @@ app.listen(PORT, HOST);
 ```docker-compose up --build```
 
 #### Imprime informações do network, entre elas quais containers estão dentro dessa network
-```docker-compose network inspect <nome_networ> # Definido no network docker-compose.yml```
+```docker network inspect <nome_networ> # Definido no network docker-compose.yml```
 
 
 
